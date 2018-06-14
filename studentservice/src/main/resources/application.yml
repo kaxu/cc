@@ -12,3 +12,12 @@
 #          username: kaxudodo
 #          password: kaxudodo
 #          driver-class-name: com.mysql.jdbc.Driver
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: http://localhost:8761/eureka/

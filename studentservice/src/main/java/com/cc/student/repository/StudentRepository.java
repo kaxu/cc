@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends CrudRepository<Student,String> {
 
-    public List<Student> findByClassInfoId(String organizationId);
+    public List<Student> findByClassInfoId(Long classId);
 }

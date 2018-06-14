@@ -19,6 +19,7 @@
   <modules>
     <module>confsvr</module>
     <module>studentservice</module>
+    <module>eurekasvr</module>
   </modules>
   
 </project>
