@@ -1,0 +1,14 @@
+  spring:
+      jpa:
+          database: MYSQL
+          hibernate:
+              ddl-auto: validate
+          properties:
+              hibernate:
+                  dialect: org.hibernate.dialect.MySQLDialect
+
+      datasource:
+          url: jdbc:mysql://kaxudb.cemekexpp71y.ap-southeast-1.rds.amazonaws.com:3305/kaxudb
+          username: kaxudodo
+          password: kaxudodo
+          driver-class-name: com.mysql.jdbc.Driver
