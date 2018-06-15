@@ -18,8 +18,9 @@
   </parent>
   <modules>
     <module>confsvr</module>
-    <module>studentservice</module>
+    <module>student-service</module>
     <module>eurekasvr</module>
+    <module>class-service</module>
   </modules>
   
 </project>
