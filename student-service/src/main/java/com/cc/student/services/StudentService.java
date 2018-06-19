@@ -7,10 +7,14 @@ import com.cc.student.model.Student;
 import com.cc.student.repository.StudentRepository;
 import com.cc.student.vo.StudentVo;
 import com.netflix.discovery.converters.Auto;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class StudentService {
@@ -24,8 +28,36 @@ public class StudentService {
     @Autowired
     private ClassInfoFeignClient classInfoFeignClient;
 
+    @HystrixCommand(
+//            fallbackMethod = "buildFallbackStudents",
+            threadPoolKey = "StudentsByClassIdThreadPool",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize",value = "30"),
+                    @HystrixProperty(name="maxQueueSize",value = "10")
+            },
+            commandProperties ={
+                    @HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value="10"),
+                    @HystrixProperty(name="circuitBreaker.errorThresholdPercentage", value="75"),
+                    @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds", value="7000"),
+                    @HystrixProperty(name="metrics.rollingStats.timeInMilliseconds", value="15000"),
+                    @HystrixProperty(name="metrics.rollingStats.numBuckets", value="5")
+            }
+    )
     public List<Student> findStudentsByClassId(Long classId){
+        randomlyRunLong();
+
         return studentRepository.findByClassInfoId(classId);
+    }
+
+    private List<Student> buildFallbackStudents(Long classId){
+        List<Student> students =new ArrayList<Student>();
+        Student student = new Student();
+        student.setName("Fallback");
+        student.setClassInfoId(classId);
+        student.setId(0L);
+        student.setVersion(-1);
+        students.add(student);
+        return students;
     }
 
     public StudentVo findStudentById(Long classId,Long studentId){
@@ -39,6 +71,21 @@ public class StudentService {
         ClassInfo classInfo = classInfoFeignClient.getClassInfo(classId);
         studentVo.setClassName(classInfo.getName());
         return studentVo;
+    }
+
+    private void randomlyRunLong(){
+        Random rand = new Random();
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+        if (randomNum==3)
+            sleep();
+    }
+
+    private void sleep(){
+        try {
+            Thread.sleep(11000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
