@@ -6,11 +6,13 @@ import com.cc.student.model.ClassInfo;
 import com.cc.student.model.Student;
 import com.cc.student.repository.StudentRepository;
 import com.cc.student.vo.StudentVo;
-import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.cc.student.utils.UserContextHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.Random;
 
 @Service
 public class StudentService {
+
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     @Autowired
     private StudentRepository studentRepository;
@@ -44,7 +48,9 @@ public class StudentService {
             }
     )
     public List<Student> findStudentsByClassId(Long classId){
-        randomlyRunLong();
+        logger.debug("StudentService.findStudentsByClassId  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+
+//        randomlyRunLong();
 
         return studentRepository.findByClassInfoId(classId);
     }
