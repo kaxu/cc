@@ -22,6 +22,7 @@
     <module>eurekasvr</module>
     <module>class-service</module>
     <module>zuulsvr</module>
+    <module>authentication-service</module>
   </modules>
   
 </project>

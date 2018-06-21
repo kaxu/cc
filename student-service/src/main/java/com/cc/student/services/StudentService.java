@@ -1,6 +1,7 @@
 package com.cc.student.services;
 
 import com.cc.student.clients.ClassInfoFeignClient;
+import com.cc.student.clients.ClassInfoRestTemplateClient;
 import com.cc.student.converter.StudentToVoConverter;
 import com.cc.student.model.ClassInfo;
 import com.cc.student.model.Student;
@@ -31,6 +32,9 @@ public class StudentService {
 
     @Autowired
     private ClassInfoFeignClient classInfoFeignClient;
+
+    @Autowired
+    private ClassInfoRestTemplateClient classInfoRestTemplateClient;
 
     @HystrixCommand(
 //            fallbackMethod = "buildFallbackStudents",
@@ -66,6 +70,8 @@ public class StudentService {
         return students;
     }
 
+    @HystrixCommand(commandProperties = {@HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")})
+//    @HystrixCommand
     public StudentVo findStudentById(Long classId,Long studentId){
         List<Student> students = findStudentsByClassId(classId);
         Student student = null;
@@ -74,7 +80,8 @@ public class StudentService {
                 student = student1;
         }
         StudentVo studentVo = studentToVoConverter.convert(student);
-        ClassInfo classInfo = classInfoFeignClient.getClassInfo(classId);
+//        ClassInfo classInfo = classInfoFeignClient.getClassInfo(classId);
+        ClassInfo classInfo = classInfoRestTemplateClient.getClassInfo(classId);
         studentVo.setClassName(classInfo.getName());
         return studentVo;
     }

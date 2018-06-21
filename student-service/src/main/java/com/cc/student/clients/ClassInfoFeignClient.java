@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface ClassInfoFeignClient {
     @RequestMapping(
             method= RequestMethod.GET,
-            value="/v1/classes/{classId}",
+            value="http://localhost:5555/api/classsrv/v1/classes/{classId}",
             consumes="application/json")
     ClassInfo getClassInfo(@PathVariable("classId") Long classId);
 }
