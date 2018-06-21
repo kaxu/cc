@@ -19,7 +19,7 @@ spring:
         encrypt.enabled: false
         git:
           uri: https://github.com/kaxu/cc-config-repo
-          searchPaths: studentservice,classservice,zuulservice
+          searchPaths: studentservice,classservice,zuulservice,authenticationservice
 #          username: aaaaaa
 #          password: aaaaaa
 

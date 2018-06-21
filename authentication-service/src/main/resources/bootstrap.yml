@@ -4,6 +4,6 @@ spring:
   profiles:
     active:
       default
-#  cloud:
-#    config:
-#      enabled: true
+  cloud:
+    config:
+      uri: http://localhost:8888

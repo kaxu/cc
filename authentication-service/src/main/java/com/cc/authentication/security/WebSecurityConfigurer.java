@@ -17,9 +17,17 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    //user for OAuth2
+//    @Override
+//    @Bean
+//    public UserDetailsService userDetailsServiceBean() throws Exception {
+//        return super.userDetailsServiceBean();
+//    }
+
+    //user for JWT
     @Override
     @Bean
-    public UserDetailsService userDetailsServiceBean() throws Exception {
+    public org.springframework.security.core.userdetails.UserDetailsService userDetailsServiceBean() throws Exception {
         return super.userDetailsServiceBean();
     }
 
