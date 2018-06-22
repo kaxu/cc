@@ -1,7 +1,10 @@
 package com.cc.zuulsvr.filters;
 
+import com.cc.zuulsvr.config.ServiceConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class TrackingFilter extends ZuulFilter{
         return SHOULD_FILTER;
     }
 
+    @Autowired
+    public ServiceConfig serviceConfig;
+
     private boolean isCorrelationIdPresent(){
       if (filterUtils.getCorrelationId() !=null){
           return true;
@@ -42,7 +48,28 @@ public class TrackingFilter extends ZuulFilter{
         return java.util.UUID.randomUUID().toString();
     }
 
+    private String getTestId(){
+
+        String result="";
+        if (filterUtils.getAuthToken()!=null){
+
+            String authToken = filterUtils.getAuthToken().replace("Bearer ","");
+            try {
+                Claims claims = Jwts.parser()
+                        .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
+                        .parseClaimsJws(authToken).getBody();
+                result = (String) claims.get("testId");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
     public Object run() {
+
+        logger.debug("show JWT tokenEnhancer testId: {}. ", getTestId());
 
         if (isCorrelationIdPresent()) {
            logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());

@@ -33,3 +33,16 @@ security:
   oauth2:
     resource:
       userInfoUri: http://localhost:8901/auth/user
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        inboundClassChanges:
+          destination: classInfoChangeTopic
+          content-type: application/json
+          group: studentGroup
+      kafka:
+        binder:
+          zkNodes: localhost
+          brokers: localhost

@@ -24,5 +24,12 @@ public class ClassInfoServiceController {
         return classInfoService.getClassInfo(classId);
     }
 
+    @RequestMapping(value="/{classId}",method = RequestMethod.PUT)
+    public void getClassInfo(@PathVariable("classId") Long classId,@RequestBody ClassInfo classInfo) {
+        if(!classId.equals(classInfo.getId()))
+            return;
+        classInfoService.updateClassInfo(classInfo.getId(),classInfo.getName());
+    }
+
 
 }
