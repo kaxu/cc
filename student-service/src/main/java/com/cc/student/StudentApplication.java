@@ -67,7 +67,7 @@ public class StudentApplication {
         return template;
     }
 
-    @Bean
+    /*@Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConnFactory = new JedisConnectionFactory();
         jedisConnFactory.setHostName( serviceConfig.getRedisServer());
@@ -80,7 +80,7 @@ public class StudentApplication {
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(jedisConnectionFactory());
         return template;
-    }
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(StudentApplication.class, args);

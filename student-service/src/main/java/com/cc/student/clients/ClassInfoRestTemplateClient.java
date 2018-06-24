@@ -19,12 +19,12 @@ public class ClassInfoRestTemplateClient {
     @Autowired
     RestTemplate restTemplate;
 
-    @Autowired
-    private ClassInfoRedisRepository classInfoRepository;
+//    @Autowired
+//    private ClassInfoRedisRepository classInfoRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(ClassInfoRestTemplateClient.class);
 
-    private ClassInfo checkRedisCache(Long classInfoId) {
+    /*private ClassInfo checkRedisCache(Long classInfoId) {
         try {
             return classInfoRepository.findClassInfo(classInfoId);
         }
@@ -40,19 +40,19 @@ public class ClassInfoRestTemplateClient {
         }catch (Exception ex){
             logger.error("Unable to cache classInfo {} in Redis. Exception {}", classInfo.getId(), ex);
         }
-    }
+    }*/
 
     public ClassInfo getClassInfo(Long classId){
         logger.debug("In Students Service.getClassInfo: {}", UserContext.getCorrelationId());
 
-        ClassInfo  classInfo = checkRedisCache(classId);
+        /*ClassInfo  classInfo = checkRedisCache(classId);
 
         if (classInfo!=null){
             logger.debug("I have successfully retrieved an classInfo {} from the redis cache: {}", classId, classInfo);
             return classInfo;
         }
 
-        logger.debug("Unable to locate classInfo from the redis cache: {}.", classId);
+        logger.debug("Unable to locate classInfo from the redis cache: {}.", classId);*/
 
         ResponseEntity<ClassInfo> restExchange =
                 restTemplate.exchange(
@@ -60,14 +60,14 @@ public class ClassInfoRestTemplateClient {
                         HttpMethod.GET,
                         null, ClassInfo.class, classId);
 
-        /*Save the record from cache*/
+        /*Save the record from cache*//*
         classInfo = restExchange.getBody();
 
         if (classInfo!=null) {
             cacheClassInfoObject(classInfo);
-        }
+        }*/
 
-        return classInfo;
+        return restExchange.getBody();
 
     }
 }

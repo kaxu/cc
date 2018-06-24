@@ -20,11 +20,11 @@ import javax.servlet.Filter;
 @EnableBinding(Source.class)
 public class ClassInfoApplication {
 
-    @Bean
+    /*@Bean
     public Filter userContextFilter() {
         UserContextFilter userContextFilter = new UserContextFilter();
         return userContextFilter;
-    }
+    }*/
 
     public static void main(String[] args) {
         SpringApplication.run(ClassInfoApplication.class, args);

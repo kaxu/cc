@@ -16,8 +16,8 @@ public class ClassChangeHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ClassChangeHandler.class);
 
-    @Autowired
-    private ClassInfoRedisRepository  classInfoRedisRepository;
+//    @Autowired
+//    private ClassInfoRedisRepository  classInfoRedisRepository;
 
     @StreamListener("inboundClassInfoChanges")
     public void loggerSink(ClassInfoChangeModel classChange) {
@@ -31,7 +31,7 @@ public class ClassChangeHandler {
                 break;
             case "UPDATE":
                 logger.debug("Received a UPDATE event from the organization service for organization id {}", classChange.getClassInfoId());
-                classInfoRedisRepository.deleteClassInfo(classChange.getClassInfoId());
+//                classInfoRedisRepository.deleteClassInfo(classChange.getClassInfoId());
                 break;
             case "DELETE":
                 logger.debug("Received a DELETE event from the organization service for organization id {}", classChange.getClassInfoId());

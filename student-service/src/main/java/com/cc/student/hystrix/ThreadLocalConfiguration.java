@@ -11,12 +11,12 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
-@Configuration
+//@Configuration
 public class ThreadLocalConfiguration {
-        @Autowired(required = false)
+//        @Autowired(required = false)
         private HystrixConcurrencyStrategy existingConcurrencyStrategy;
 
-        @PostConstruct
+//        @PostConstruct
         public void init() {
             // Keeps references of existing Hystrix plugins.
             HystrixEventNotifier eventNotifier = HystrixPlugins.getInstance()

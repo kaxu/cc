@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 
-@Repository
+//@Repository
 public class ClassInfoRepositoryImpl implements ClassInfoRedisRepository {
 
     private static final String HASH_NAME ="classinfo";
@@ -20,12 +20,12 @@ public class ClassInfoRepositoryImpl implements ClassInfoRedisRepository {
         super();
     }
 
-    @Autowired
+//    @Autowired
     private ClassInfoRepositoryImpl(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    @PostConstruct
+//    @PostConstruct
     private void init() {
         hashOperations = redisTemplate.opsForHash();
     }

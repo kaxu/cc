@@ -3,6 +3,8 @@ package com.cc.classes.services;
 import com.cc.classes.events.source.SimpleSourceBean;
 import com.cc.classes.model.ClassInfo;
 import com.cc.classes.repository.ClassInfoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,9 @@ import java.util.UUID;
 
 @Service
 public class ClassInfoService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ClassInfoService.class);
+
     @Autowired
     private ClassInfoRepository classInfoRepository;
 
@@ -17,6 +22,7 @@ public class ClassInfoService {
     private SimpleSourceBean simpleSourceBean;
 
     public ClassInfo getClassInfo(Long classId) {
+        logger.debug("ClassInfoService.getClassInfo {}",classId);
         return classInfoRepository.findById(classId);
     }
 
