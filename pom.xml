@@ -23,6 +23,7 @@
     <module>class-service</module>
     <module>zuulsvr</module>
     <module>authentication-service</module>
+      <module>test-stream-client</module>
   </modules>
   
 </project>

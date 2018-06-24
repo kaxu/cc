@@ -1,0 +1,26 @@
+
+
+
+#Setting the logging levels for the service
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.cc: DEBUG
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:8901/auth/user
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: classInfoChangeTopic
+          content-type: application/json
+          group: studentGroup
+        binder:
+          zkNodes: localhost
+          brokers: localhost

@@ -24,7 +24,7 @@ public class ClassInfoService {
         ClassInfo classInfo = classInfoRepository.findById(classId);
         classInfo.setName(name);
         classInfoRepository.save(classInfo);
-        simpleSourceBean.publishOrgChange("SAVE",classId);
+        simpleSourceBean.publishOrgChange("UPDATE",classId);
     }
 
 

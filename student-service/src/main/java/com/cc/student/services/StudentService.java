@@ -30,8 +30,8 @@ public class StudentService {
     @Autowired
     private StudentToVoConverter studentToVoConverter;
 
-    @Autowired
-    private ClassInfoFeignClient classInfoFeignClient;
+//    @Autowired
+//    private ClassInfoFeignClient classInfoFeignClient;
 
     @Autowired
     private ClassInfoRestTemplateClient classInfoRestTemplateClient;
@@ -70,7 +70,10 @@ public class StudentService {
         return students;
     }
 
-    @HystrixCommand(commandProperties = {@HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")})
+    @HystrixCommand(commandProperties = {
+            @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE"),
+            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2000")
+    })
 //    @HystrixCommand
     public StudentVo findStudentById(Long classId,Long studentId){
         List<Student> students = findStudentsByClassId(classId);

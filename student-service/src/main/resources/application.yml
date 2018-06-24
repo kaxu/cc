@@ -38,11 +38,10 @@ spring:
   cloud:
     stream:
       bindings:
-        inboundClassChanges:
+        inboundClassInfoChanges:
           destination: classInfoChangeTopic
           content-type: application/json
           group: studentGroup
-      kafka:
         binder:
           zkNodes: localhost
           brokers: localhost

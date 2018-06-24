@@ -1,4 +1,4 @@
-package com.cc.student.events.models;
+package com.cc.tsc.model;
 
 public class ClassInfoChangeModel {
     private String type;
