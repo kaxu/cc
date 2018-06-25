@@ -23,7 +23,8 @@
     <module>class-service</module>
     <module>zuulsvr</module>
     <module>authentication-service</module>
-      <module>test-stream-client</module>
+      <!--<module>test-stream-client</module>-->
+      <module>zipkinsvr</module>
   </modules>
   
 </project>
